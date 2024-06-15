@@ -5,7 +5,7 @@ def get_driver_race_detail_by_position_number(driver_id, position_number):
     cur = conn.cursor()
     
     cur.execute("""
-                SELECT r.official_name, d.id AS driver_id, d.name AS driver_name,
+                SELECT r.official_name, d.name AS driver_name,
                        rd.position_number, rd.race_time, rd.race_grid_position_text
                 FROM race_data rd
                 JOIN race r ON r.id = rd.race_id
@@ -15,7 +15,8 @@ def get_driver_race_detail_by_position_number(driver_id, position_number):
                 AND d.id LIKE %s
                 """, (position_number, f"%{driver_id}%"))
     
-    race_details = cur.fetchall()
+    columns = [desc[0] for desc in cur.description]
+    race_details = [dict(zip(columns, row)) for row in cur.fetchall()]
     
     cur.close()
     conn.close()
