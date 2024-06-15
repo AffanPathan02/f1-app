@@ -17,7 +17,7 @@ def get_driver_race_detail_by_position_number(driver_id, position_number):
     
     columns = [desc[0] for desc in cur.description]
     race_details = [dict(zip(columns, row)) for row in cur.fetchall()]
-    
+    print(len(race_details))
     cur.close()
     conn.close()
     
