@@ -1,6 +1,6 @@
 from flask import jsonify, current_app,abort,request
 from app import app
-from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_race_detail_by_position_number
+from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_race_detail_by_position_number,get_circuit_details_by_year
 
 @app.route('/driver/')
 def get_all_driver_endpoint():
@@ -45,7 +45,7 @@ def get_driver_race_position_by_position_endpoint():
         return jsonify(message=f"No race found for driver_id {driver_id} and position_number {position_number}"), 404
     
 @app.route('/race/winner')
-def get_race_winners_by_driver():
+def get_race_winners_by_driver_endpoint():
     driver_id=request.args.get('driver_id')
     position_number=1
     
@@ -55,3 +55,15 @@ def get_race_winners_by_driver():
         return jsonify(winners=winners)
     else:
         return jsonify(message=f"No winners found for driver_id {driver_id} "), 404
+
+@app.route('/race/circuit')    
+def get_circuit_details_by_year_endpoint():
+    circuit_id=request.args.get('circuit_id')
+    year=request.args.get('year')
+    
+    circuit_detail=get_circuit_details_by_year(circuit_id,year)
+    
+    if circuit_detail:
+        return jsonify(circuit_detail=circuit_detail)
+    else:
+        return jsonify(message=f"No circuit detail for {circuit_id} for the year {year}"),404
