@@ -31,7 +31,6 @@ def get_driver_by_id(driver_id):
 def get_driver_detail_by_position_number(driver_id, position_number):
     conn = get_db_connection()
     cur = conn.cursor()
-    
     cur.execute("""
                 SELECT r.official_name, d.name AS driver_name,
                        rd.position_number, rd.race_time, rd.race_grid_position_text
