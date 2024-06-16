@@ -1,6 +1,6 @@
 from flask import jsonify, current_app,abort,request
 from app import app
-from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_race_detail_by_position_number,get_circuit_details_by_year
+from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_detail_by_position_number,get_circuit_details_by_year
 
 @app.route('/driver/')
 def get_all_driver_endpoint():
@@ -31,13 +31,13 @@ def get_constructor_id_endpoint(constructor_id):
     return jsonify(constructor=constructor)
 
 @app.route('/race/')
-def get_driver_race_position_by_position_endpoint():
+def get_driver_details_by_position_endpoint():
     position_number = request.args.get('position_number')
     driver_id=request.args.get('driver_id')
     if position_number is None:
         return jsonify(message="Position number parameter is required"), 400
     
-    winners = get_driver_race_detail_by_position_number(driver_id, position_number)
+    winners = get_driver_detail_by_position_number(driver_id, position_number)
     
     if winners:
         return jsonify(winners=winners)
@@ -49,7 +49,7 @@ def get_race_winners_by_driver_endpoint():
     driver_id=request.args.get('driver_id')
     position_number=1
     
-    winners = get_driver_race_detail_by_position_number(driver_id, position_number)
+    winners = get_driver_detail_by_position_number(driver_id, position_number)
     
     if winners:
         return jsonify(winners=winners)
