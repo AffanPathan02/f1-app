@@ -1,6 +1,6 @@
 from flask import jsonify, current_app,abort,request
 from app import app
-from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_detail_by_position_number,get_race_details_by_circuit_id_and_year,get_race_winner_by_circuit
+from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_detail_by_position_number,get_race_details_by_circuit_id_and_year,get_race_winner_by_circuit,get_driver_details_by_circuit
 
 @app.route('/driver/')
 def get_all_driver_endpoint():
@@ -16,20 +16,6 @@ def get_driver_id_endpoint(driver_id):
         abort(404, description=f"Driver with id {driver_id} not found")
     return jsonify(driver=driver)
 
-@app.route('/constructor/')
-def get_constructor_endpoint():
-    constructor_list=get_all_constructor()
-    if constructor_list is None:
-        abort(404,"No constructor list available")
-    return jsonify(constructor_list=constructor_list)
-
-@app.route('/constructor/<string:constructor_id>')
-def get_constructor_id_endpoint(constructor_id):
-    constructor=get_constructor_by_id(constructor_id)
-    if constructor is None:
-        abort(404, description=f"constructor with id {constructor_id} not found")
-    return jsonify(constructor=constructor)
-
 @app.route('/driver/<string:driver_id>/<int:position_number>')
 def get_driver_details_by_position_endpoint(driver_id,position_number):
     if position_number is None:
@@ -43,6 +29,34 @@ def get_driver_details_by_position_endpoint(driver_id,position_number):
         return jsonify(winners=winners)
     else:
         return jsonify(message=f"No race found for driver_id {driver_id} and position_number {position_number}"), 404
+
+@app.route('/driver/<string:driver_id>/<string:circuit_id>')
+def get_driver_details_by_circuit_endpoint(driver_id,circuit_id):
+    if driver_id is None:
+        return jsonify(message="driver_id parameter is required"), 400
+    if circuit_id is None:
+        return jsonify(message="circuit_id parameter is required"), 400
+    
+    driver_details = get_driver_details_by_circuit(driver_id,circuit_id)
+    
+    if driver_details:
+        return jsonify(driver_details=driver_details)
+    else:
+        return jsonify(message=f"No race found for driver_id {driver_id} and circuit_id {circuit_id}"), 404
+  
+@app.route('/constructor/')
+def get_constructor_endpoint():
+    constructor_list=get_all_constructor()
+    if constructor_list is None:
+        abort(404,"No constructor list available")
+    return jsonify(constructor_list=constructor_list)
+
+@app.route('/constructor/<string:constructor_id>')
+def get_constructor_id_endpoint(constructor_id):
+    constructor=get_constructor_by_id(constructor_id)
+    if constructor is None:
+        abort(404, description=f"constructor with id {constructor_id} not found")
+    return jsonify(constructor=constructor)
     
 @app.route('/race/driver/<string:driver_id>')
 def get_race_winners_by_driver_endpoint(driver_id):

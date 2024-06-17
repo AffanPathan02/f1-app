@@ -58,6 +58,27 @@ GET_DRIVER_DETAIL_BY_POSITION_NUMBER="""
                 AND rd.type = 'RACE_RESULT'
                 AND d.id LIKE %s
                 """
+
+GET_DRIVER_DETAIL_BY_CIRCUIT="""
+SELECT 
+            c.full_name,
+            c.type AS circuit_type,
+			c.place_name,
+			r.year AS race_year,
+            d.name AS driver_name,
+            cons.name AS constructor_name,
+	        rd.race_time,
+			rd.position_number,
+			rd.race_grid_position_text 
+            FROM race_data rd
+                JOIN race r ON r.id = rd.race_id
+                JOIN circuit c ON c.id = r.circuit_id
+                JOIN driver d ON d.id = rd.driver_id
+                JOIN constructor cons on rd.constructor_id=cons.id
+                WHERE d.id LIKE %s
+                AND c.id LIKE %s
+                    
+"""
                 
 GET_ALL_CONTRUCTOR="""select * from constructor;"""
 
