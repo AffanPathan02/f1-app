@@ -1,6 +1,6 @@
 from flask import jsonify, current_app,abort,request
 from app import app
-from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_detail_by_position_number,get_race_details_by_circuit_id_and_year,get_race_winner_by_circuit,get_driver_details_by_circuit
+from app.route import get_all_driver,get_driver_by_id,get_all_constructor,get_constructor_by_id, get_driver_detail_by_position_number,get_race_details_by_circuit_id_and_year,get_race_winner_by_circuit,get_driver_details_by_circuit,get_qualification_details_by_circuit_by_year
 
 @app.route('/driver/')
 def get_all_driver_endpoint():
@@ -86,3 +86,12 @@ def get_race_details_by_circuit_id_and_year_endpoint(circuit_id,year):
         return jsonify(race_detail=circuit_detail)
     else:
         return jsonify(message=f"No race detail for {circuit_id} for the year {year}"),404
+
+@app.route('/race/q3/<string:circuit_id>/<int:year>')
+def get_qualification_details_by_circuit_by_year_endpoint(circuit_id,year):
+    q3_details=get_qualification_details_by_circuit_by_year(circuit_id,year)
+    
+    if q3_details:
+        return jsonify(q3_details=q3_details)
+    else:
+        return jsonify(message=f"No q3 detail for {circuit_id} for the year {year}"),404
