@@ -44,7 +44,7 @@ def get_driver_details_by_position_endpoint(driver_id,position_number):
     else:
         return jsonify(message=f"No race found for driver_id {driver_id} and position_number {position_number}"), 404
     
-@app.route('/race/winner/<string:driver_id>')
+@app.route('/race/driver/<string:driver_id>')
 def get_race_winners_by_driver_endpoint(driver_id):
     position_number=1
     
