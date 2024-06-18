@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    command: flask run --host=0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres_f1_container-1
+    environment:
+      FLASK_APP: run.py
+      FLASK_ENV: development
+      DB_NAME: ${DB_NAME}
+      DB_USER:  ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 5432
+
+  postgres_f1_container-1:
+    image: postgres
+    container_name: ${DB_HOST}
+    environment:
+      POSTGRES_PASSWORD:  ${DB_PASSWORD}
+    ports:
+      - "5431:5432"
+    volumes:
+      - f1_data:/var/lib/postgresql/data
+
+volumes:
+  f1_data:
+
+

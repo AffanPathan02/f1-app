@@ -1,12 +1,16 @@
 import psycopg2
-from flask import current_app
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname=current_app.config['DB_NAME'],
-        user=current_app.config['DB_USER'],
-        password=current_app.config['DB_PASSWORD'],
-        host=current_app.config['DB_HOST'],
-        port=current_app.config['DB_PORT']
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT')
     )
+    
     return conn

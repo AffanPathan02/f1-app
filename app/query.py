@@ -18,7 +18,7 @@ GET_RACE_DETAILS_BY_CIRCUIT_ID_AND_YEAR="""
                 JOIN constructor cons on rd.constructor_id=cons.id
                 WHERE c.id LIKE %s
                     AND r.year = %s
-	                AND rd.type='RACE_RESULT';
+	                AND rd.type='RACE_RESULT'
                 ORDER BY rd.position_number ASC
 """
 
