@@ -3,3 +3,4 @@ __pycache__
 f1-env
 config.py
 .env
+init.sql

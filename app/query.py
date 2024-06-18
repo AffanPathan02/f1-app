@@ -22,27 +22,12 @@ GET_RACE_DETAILS_BY_CIRCUIT_ID_AND_YEAR="""
                 ORDER BY rd.position_number ASC
 """
 
-GET_QUALIFICATION_DETAILS_BY_CIRCUIT_BY_YEAR="""
-                SELECT 
-                    c.name AS circuit_name, 
-                    r.year, 
-                    d.name AS driver_name, 
-                    rd.position_number,
-                    cons.name AS constructor_name,
-                    rd.race_grid_position_number AS starting_grid_position,
-                    rd.qualifying_time AS q3_time,
-	                rd.qualifying_gap,
-	                rd.qualifying_interval,
-	                rd.starting_grid_position_grid_penalty_positions
-                FROM race_data rd
-                JOIN race r ON r.id = rd.race_id
-                JOIN circuit c ON c.id = r.circuit_id
-                JOIN driver d ON d.id = rd.driver_id
-                JOIN constructor cons on rd.constructor_id=cons.id
-                WHERE c.id LIKE %s
-						AND rd.type ='QUALIFYING_RESULT'
-						AND r.year=%s
-                ORDER BY rd.position_number ASC
+GET_QUALIFICATION_DETAILS_BY_TYPE_BY_CIRCUIT_BY_YEAR="""
+                SELECT * FROM get_qualifying_results(%s,%s,%s);
+"""
+
+GET_FREE_PRACTICE_DETAILS_BY_SESSION_BY_CIRCUIT_BY_YEAR="""
+    SELECT * FROM get_free_practice_results(%s,%s,%s); 
 """
 
 GET_RACE_WINNER_BY_CIRCUIT="""
