@@ -5,6 +5,7 @@ import os
 load_dotenv()
 
 def get_db_connection():
+    print(os.getenv('DB_HOST'))
     conn = psycopg2.connect(
         dbname=os.getenv('DB_NAME'),
         user=os.getenv('DB_USER'),
