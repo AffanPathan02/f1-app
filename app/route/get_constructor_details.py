@@ -1,7 +1,7 @@
 from app.db_conn import get_db_connection
 import time
 from app.utils import fetch_utils
-from app.query import GET_ALL_CONTRUCTOR,GET_CONSTRUCTOR_BY_ID
+from app.route.query import GET_ALL_CONTRUCTOR,GET_CONSTRUCTOR_BY_ID
 
 def get_all_constructor():
     return fetch_utils.fetch_details(GET_ALL_CONTRUCTOR)

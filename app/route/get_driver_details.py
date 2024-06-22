@@ -1,7 +1,7 @@
 from app.db_conn import get_db_connection
 import time
 from app.utils import fetch_utils
-from app.query import GET_ALL_DRIVER,GET_DRIVER_BY_ID,GET_DRIVER_DETAIL_BY_POSITION_NUMBER,GET_DRIVER_DETAIL_BY_CIRCUIT
+from app.route.query import GET_ALL_DRIVER,GET_DRIVER_BY_ID,GET_DRIVER_DETAIL_BY_POSITION_NUMBER,GET_DRIVER_DETAIL_BY_CIRCUIT
 
 def get_all_driver():
     return fetch_utils.fetch_details(GET_ALL_DRIVER)
