@@ -89,8 +89,8 @@ def get_race_details_by_circuit_id_and_year_endpoint(circuit_id,year):
 
 @app.route('/race/q3/<string:circuit_id>/<int:year>')
 def get_q3_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=3
-    q3_details=get_qualification_details_by_circuit_by_year(race_type,circuit_id,year)
+    quali_session=3
+    q3_details=get_qualification_details_by_circuit_by_year(quali_session,circuit_id,year)
     
     if q3_details:
         return jsonify(q3_details=q3_details)
@@ -99,8 +99,8 @@ def get_q3_details_by_circuit_by_year_endpoint(circuit_id,year):
 
 @app.route('/race/q2/<string:circuit_id>/<int:year>')
 def get_q2_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=2
-    q2_details=get_qualification_details_by_circuit_by_year(race_type,circuit_id,year)
+    quali_session=2
+    q2_details=get_qualification_details_by_circuit_by_year(quali_session,circuit_id,year)
     
     if q2_details:
         return jsonify(q2_details=q2_details)
@@ -109,8 +109,8 @@ def get_q2_details_by_circuit_by_year_endpoint(circuit_id,year):
     
 @app.route('/race/q1/<string:circuit_id>/<int:year>')
 def get_q1_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=1
-    q1_details=get_qualification_details_by_circuit_by_year(race_type,circuit_id,year)
+    quali_session=1
+    q1_details=get_qualification_details_by_circuit_by_year(quali_session,circuit_id,year)
     
     if q1_details:
         return jsonify(q1_details=q1_details)
@@ -119,8 +119,8 @@ def get_q1_details_by_circuit_by_year_endpoint(circuit_id,year):
 
 @app.route('/race/fp1/<string:circuit_id>/<int:year>')
 def get_fp1_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=1
-    fp1_details=get_free_practise_details_by_circuit_by_year(race_type,circuit_id,year)
+    practice_session=1
+    fp1_details=get_free_practise_details_by_circuit_by_year(practice_session,circuit_id,year)
     
     if fp1_details:
         return jsonify(fp1_details=fp1_details)
@@ -129,8 +129,8 @@ def get_fp1_details_by_circuit_by_year_endpoint(circuit_id,year):
     
 @app.route('/race/fp2/<string:circuit_id>/<int:year>')
 def get_fp2_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=2
-    fp2_details=get_free_practise_details_by_circuit_by_year(race_type,circuit_id,year)
+    practice_session=2
+    fp2_details=get_free_practise_details_by_circuit_by_year(practice_session,circuit_id,year)
     
     if fp2_details:
         return jsonify(fp2_details=fp2_details)
@@ -139,8 +139,8 @@ def get_fp2_details_by_circuit_by_year_endpoint(circuit_id,year):
     
 @app.route('/race/fp3/<string:circuit_id>/<int:year>')
 def get_fp3_details_by_circuit_by_year_endpoint(circuit_id,year):
-    race_type=3
-    fp3_details=get_free_practise_details_by_circuit_by_year(race_type,circuit_id,year)
+    practice_session=3
+    fp3_details=get_free_practise_details_by_circuit_by_year(practice_session,circuit_id,year)
     
     if fp3_details:
         return jsonify(fp3_details=fp3_details)
