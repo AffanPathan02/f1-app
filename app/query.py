@@ -44,38 +44,68 @@ GET_SPRINT_RACE_DETAILS_BY_CIRCUIT_BY_YEAR="""
             d.name AS driver_name,
             cons.name AS constructor_name,
 	        rd.race_time
-            FROM race_data rd
-                JOIN race r ON r.id = rd.race_id
-                JOIN circuit c ON c.id = r.circuit_id
-                JOIN driver d ON d.id = rd.driver_id
-                JOIN constructor cons on rd.constructor_id=cons.id
-            WHERE c.id LIKE %s
-                 AND rd.type='SPRINT_RACE_RESULT'
-                 AND r.year=%s
-			ORDER bY rd.position_number  ASC
+        FROM race_data rd
+            JOIN race r ON r.id = rd.race_id
+            JOIN circuit c ON c.id = r.circuit_id
+            JOIN driver d ON d.id = rd.driver_id
+            JOIN constructor cons on rd.constructor_id=cons.id
+        WHERE c.id LIKE %s
+            AND rd.type='SPRINT_RACE_RESULT'
+            AND r.year=%s
+		ORDER bY rd.position_number ASC
 """
 
-GET_RACE_WINNER_BY_CIRCUIT="""
-            SELECT 
+GET_SPRINT_QUALIFICATION_DETAILS_BY_CIRCUIT_BY_YEAR="""
+        SELECT 
             c.full_name,
             c.type AS circuit_type,
 			c.place_name,
 			r.year AS race_year,
 	        r.date AS race_date,
 	        r.distance AS race_distance,
-	        r.laps,
-	        r.scheduled_laps,
+            rd.position_number,
+	 		rd.qualifying_laps,
+			rd.qualifying_q1 AS sq1,
+			rd.qualifying_q2 AS sq2,
+	 		rd.qualifying_q3 AS sq3,
+			rd.qualifying_gap AS sq3_gap,
+	 		rd.qualifying_interval AS sq3_interval,
             d.name AS driver_name,
             cons.name AS constructor_name,
 	        rd.race_time
+        FROM race_data rd
+            JOIN race r ON r.id = rd.race_id
+            JOIN circuit c ON c.id = r.circuit_id
+            JOIN driver d ON d.id = rd.driver_id
+            JOIN constructor cons on rd.constructor_id=cons.id
+        WHERE c.id LIKE %s
+            AND rd.type='SPRINT_QUALIFYING_RESULT'
+            AND r.year=%s
+		ORDER bY rd.position_number ASC
+                 
+"""
+
+GET_RACE_WINNER_BY_CIRCUIT="""
+            SELECT 
+                c.full_name,
+                c.type AS circuit_type,
+			    c.place_name,
+			    r.year AS race_year,
+	            r.date AS race_date,
+	            r.distance AS race_distance,
+	            r.laps,
+	            r.scheduled_laps,
+                d.name AS driver_name,
+                cons.name AS constructor_name,
+	            rd.race_time
             FROM race_data rd
                 JOIN race r ON r.id = rd.race_id
                 JOIN circuit c ON c.id = r.circuit_id
                 JOIN driver d ON d.id = rd.driver_id
                 JOIN constructor cons on rd.constructor_id=cons.id
-                WHERE c.id LIKE %s
-                    AND rd.type='RACE_RESULT'
-                    AND rd.position_number=1
+            WHERE c.id LIKE %s
+                AND rd.type='RACE_RESULT'
+                AND rd.position_number=1
                 """
 
 GET_ALL_DRIVER="SELECT * FROM driver;"
